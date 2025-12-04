@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: selfhealtestapp
+  namespace: argocd
+spec:
+  destination:
+    namespace: argocdappdemo
+    server: "https://kubernetes.default.svc"
+  source:
+    path: nginx_deployment
+    repoURL: "https://github.com/alexant055/ArgoCD-AA.git"
+    targetRevision: HEAD
+  project: default
+  syncPolicy:
+    automated:
+      prune: false
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
