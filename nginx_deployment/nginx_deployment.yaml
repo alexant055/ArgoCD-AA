@@ -1,13 +1,11 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
+  name: nginx-deployment
   labels:
     app: nginx
-    app.kubernetes.io/instance: argocd
-  name: nginx_deployment
-  namespace: argocd
 spec:
-  replicas: 2
+  replicas: 2 # Desired number of pods
   selector:
     matchLabels:
       app: nginx
@@ -17,7 +15,7 @@ spec:
         app: nginx
     spec:
       containers:
-        - image: nginx:1.14.2
-          name: nginx
-          ports:
-            - containerPort: 80
+      - name: nginx
+        image: nginx:1.14.2 # Using a specific stable Nginx image
+        ports:
+        - containerPort: 80
